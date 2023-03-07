@@ -1,6 +1,20 @@
 import { extendTheme } from "@chakra-ui/react";
 
-const components = {};
+const components = {
+  Input: {
+    variants: {
+      filled: {
+        field: {
+          bg: "gray.100",
+          _focusVisible: {
+            bg: "brand.100",
+            borderColor: "brand.500",
+          },
+        },
+      },
+    },
+  },
+};
 
 const colors = {
   brand: {

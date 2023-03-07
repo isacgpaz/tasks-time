@@ -1,11 +1,35 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Footer } from "./components/Footer";
 import { Presentation } from "./components/Presentation";
+import { useAuth } from "./context/auth";
 
 export function App() {
-  return (
-    // <Box minH="100vh" bgGradient="linear(to-r, brand.200, brand.500)">
-    <Presentation />
+  const { isAuthenticated, isLoading } = useAuth();
 
-    // </Box>
-  );
+  if (isLoading) {
+    return (
+      <Flex
+        minH="100vh"
+        bgGradient="linear(to-r, brand.200, brand.500)"
+        alignItems="center"
+        justify="center"
+      >
+        <Spinner />
+      </Flex>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <Box minH="100vh" bgGradient="linear(to-r, brand.200, brand.500)">
+        <Presentation />
+
+        <Box position="absolute" bottom={0} w="100%">
+          <Footer />
+        </Box>
+      </Box>
+    );
+  }
+
+  return <Box>authenticated</Box>;
 }
