@@ -20,11 +20,12 @@ import { CategoryCard } from "../CategoryCard";
 import { SignInStepsProps } from "./props";
 
 const categories = [
-  "Academia",
   "Estudos",
   "Trabalho",
-  "Domésticos",
+  "Meditação",
   "Leituras",
+  "Academia",
+  "Afazeres domésticos",
   "Outros",
 ];
 
@@ -101,7 +102,9 @@ export function CategoriesForm({ setStep, user }: SignInStepsProps) {
 
       <ModalBody>
         <FormControl isInvalid={!!errors.categories}>
-          <FormLabel>Que atividades você gostaria de evoluir? (Opcional)</FormLabel>
+          <FormLabel>
+            Que atividades você gostaria de evoluir? (Opcional)
+          </FormLabel>
 
           <Flex gap={2} flexWrap="wrap" justify="center" w="80%" mx="auto">
             {categories.map((category) => (
