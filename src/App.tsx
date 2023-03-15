@@ -1,4 +1,5 @@
 import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Dashboard } from "./components/Dashboard";
 import { Footer } from "./components/Footer";
 import { Presentation } from "./components/Presentation";
 import { useAuth } from "./context/auth";
@@ -31,5 +32,5 @@ export function App() {
     );
   }
 
-  return <Box>authenticated</Box>;
+  return <Dashboard />;
 }
