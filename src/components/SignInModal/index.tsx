@@ -46,7 +46,9 @@ export function SignInModal({ isOpen, onClose }: Omit<ModalProps, "children">) {
       isOpen={isOpen}
       onClose={handleClose}
     >
-      <ModalOverlay />a{renderStep}
+      <ModalOverlay />
+
+      {renderStep}
     </Modal>
   );
 }

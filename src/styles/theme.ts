@@ -38,7 +38,7 @@ const colors = {
   blueGreen: "#219EBC",
   purple: "#8338EC",
   rose: "#FF006E",
-  white: "#e5e5e5",
+  white: "#f0f0f0",
   black: "#181A20",
   dark: "#1F222A",
 };

@@ -43,7 +43,7 @@ export function CategoriesForm({ setStep, user }: SignInStepsProps) {
     watch,
   } = useForm<CategoriesFormType>({
     defaultValues: {
-      categories: [],
+      categories: user.categories ?? [],
     },
   });
 

@@ -21,12 +21,21 @@ type UsernameFormType = {
   name: string;
 };
 
-export function UsernameForm({ setStep, setUser, onClose }: SignInStepsProps) {
+export function UsernameForm({
+  setStep,
+  user,
+  setUser,
+  onClose,
+}: SignInStepsProps) {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<UsernameFormType>();
+  } = useForm<UsernameFormType>({
+    defaultValues: {
+      name: user.name,
+    },
+  });
 
   function handleSignIn({ name }: UsernameFormType) {
     setUser((user) => ({

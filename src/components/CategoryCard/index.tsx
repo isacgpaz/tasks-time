@@ -20,6 +20,9 @@ export function CategoryCard({
       py={2}
       variant={isActive ? "solid" : "outline"}
       colorScheme="brand"
+      _hover={{
+        bg: isActive ? undefined : "brand.100",
+      }}
       size="sm"
       onClick={() => toggleCategory(category)}
     >
