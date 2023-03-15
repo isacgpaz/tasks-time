@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Icon,
@@ -9,7 +10,8 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Book, Play } from "@phosphor-icons/react";
+import { Book, Play, Plus } from "@phosphor-icons/react";
+import { CreateTaskModal } from "../CreateTaskModal";
 import { TasksDetailsModal } from "../TaskDetailsModal";
 
 export function TasksList() {
@@ -19,9 +21,28 @@ export function TasksList() {
     onClose: onTaskDetailsClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isCreateTaskOpen,
+    onOpen: onCreateTaskOpen,
+    onClose: onCreateTaskClose,
+  } = useDisclosure();
+
   return (
     <Box mt={6}>
-      <Heading size="lg">Minhas tarefas (8)</Heading>
+      <Flex justify="space-between" gap={6}>
+        <Heading size="lg">Minhas tarefas (8)</Heading>
+
+        <Flex>
+          <Button
+            borderRadius="full"
+            colorScheme="brand"
+            leftIcon={<Plus weight="bold" />}
+            onClick={onCreateTaskOpen}
+          >
+            Nova tarefa
+          </Button>
+        </Flex>
+      </Flex>
 
       <Flex as={List} mt={3} direction="column" gap={3}>
         {Array.from({ length: 4 }).map(() => (
@@ -70,6 +91,8 @@ export function TasksList() {
           </Flex>
         ))}
       </Flex>
+
+      <CreateTaskModal isOpen={isCreateTaskOpen} onClose={onCreateTaskClose} />
 
       <TasksDetailsModal
         isOpen={isTaskDetailsOpen}

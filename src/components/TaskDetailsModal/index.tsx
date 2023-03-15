@@ -33,6 +33,10 @@ export function TasksDetailsModal({
 
         <ModalBody>
           <Box>
+            <FormLabel as="span" fontSize="xs" color="gray.600">
+              Categoria
+            </FormLabel>
+
             <Tag
               bg="purple"
               color="white"
@@ -63,6 +67,7 @@ export function TasksDetailsModal({
             colorScheme="blackAlpha"
             variant="ghost"
             onClick={onClose}
+            borderRadius="full"
           >
             Fechar
           </Button>
@@ -76,6 +81,7 @@ export function TasksDetailsModal({
               transform: "scale(0.985)",
             }}
             leftIcon={<Play weight="fill" size={18} />}
+            borderRadius="full"
           >
             Iniciar
           </Button>
