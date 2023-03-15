@@ -1,15 +1,20 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
+import { Coutdown } from "../Coutdown";
 import { Footer } from "../Footer";
-import { Greetings } from "../Greetings";
 import { Header } from "../Header";
+import { TasksList } from "../TasksList";
 
 export function Dashboard() {
   return (
-    <Box minH="100vh" bgGradient="linear(to-r, brand.200, brand.500)">
-      <Container maxW="container.md" py={10}>
+    <Box minH="100vh" bg="blackAlpha.100">
+      <Container maxW={840} py={10}>
         <Header />
 
-        <Greetings />
+        <Flex mt={6} gap={16}>
+          {/* <Coutdown /> */}
+        </Flex>
+
+        <TasksList />
       </Container>
 
       <Box position="absolute" bottom={0} w="100%">
