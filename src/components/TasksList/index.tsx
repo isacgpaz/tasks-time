@@ -7,10 +7,18 @@ import {
   List,
   ListItem,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Book, Play } from "@phosphor-icons/react";
+import { TasksDetailsModal } from "../TaskDetailsModal";
 
 export function TasksList() {
+  const {
+    isOpen: isTaskDetailsOpen,
+    onOpen: onTaskDetailsOpen,
+    onClose: onTaskDetailsClose,
+  } = useDisclosure();
+
   return (
     <Box mt={6}>
       <Heading size="lg">Minhas tarefas (8)</Heading>
@@ -37,7 +45,7 @@ export function TasksList() {
               <Icon as={Book} color="white" fontSize={24} weight="fill" />
             </Flex>
 
-            <Box flex={1}>
+            <Box flex={1} onClick={onTaskDetailsOpen} cursor="pointer">
               <Text fontSize="lg" fontWeight={500}>
                 Tarefa
               </Text>
@@ -62,6 +70,11 @@ export function TasksList() {
           </Flex>
         ))}
       </Flex>
+
+      <TasksDetailsModal
+        isOpen={isTaskDetailsOpen}
+        onClose={onTaskDetailsClose}
+      />
     </Box>
   );
 }
