@@ -14,6 +14,8 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Play } from "@phosphor-icons/react";
+import { format, parseISO } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useTask } from "../../context/task";
 import { Task, TaskWithTimeFormatted } from "../../ts/task";
 
@@ -95,6 +97,24 @@ export function TaskDetailsModal({
               </FormLabel>
 
               <Text fontSize="sm">{selectedTask.description}</Text>
+            </Box>
+          )}
+
+          {selectedTask?.finishedAt && (
+            <Box mt={4}>
+              <FormLabel as="span" fontSize="xs" color="gray.600">
+                Data de finalização
+              </FormLabel>
+
+              <Text fontSize="sm" textTransform="capitalize">
+                {format(
+                  parseISO(selectedTask.finishedAt),
+                  "	EEE, dd/MM/yyyy - HH:mm",
+                  {
+                    locale: ptBR,
+                  }
+                )}
+              </Text>
             </Box>
           )}
         </ModalBody>

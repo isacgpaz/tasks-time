@@ -27,7 +27,7 @@ import { useAuth } from "../../context/auth";
 import { Task } from "../../ts/task";
 import { timeToSeconds } from "../../utils/timeToSeconds";
 
-type CreateTaskFormType = Omit<Task, "time" | "id"> & {
+type CreateTaskFormType = Omit<Task, "time" | "id" | "finishedAt"> & {
   time: string;
 };
 

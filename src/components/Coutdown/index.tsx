@@ -58,7 +58,9 @@ export function Coutdown({ taskTime }: CountdownProps) {
     );
 
     const tasksWithUpdate = previousTasks.map((task) =>
-      task.id === selectedTask?.id ? { ...task, isCompleted: true } : task
+      task.id === selectedTask?.id
+        ? { ...task, isCompleted: true, finishedAt: new Date() }
+        : task
     );
 
     localStorage.setItem("@taskstime:tasks", JSON.stringify(tasksWithUpdate));

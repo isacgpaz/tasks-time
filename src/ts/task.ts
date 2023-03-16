@@ -5,6 +5,7 @@ export type Task = {
   isCompleted: boolean;
   category?: string;
   description?: string;
+  finishedAt?: string;
 };
 
 export type TaskWithTimeFormatted = Task & {
