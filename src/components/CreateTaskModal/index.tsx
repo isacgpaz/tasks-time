@@ -148,24 +148,30 @@ export function CreateTaskModal({
               <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
             </FormControl>
 
-            <FormControl>
-              <FormLabel fontSize="xs" color="gray.600">
-                Categoria (Opcional)
-              </FormLabel>
+            {user?.categories && (
+              <FormControl>
+                <FormLabel fontSize="xs" color="gray.600">
+                  Categoria (Opcional)
+                </FormLabel>
 
-              <RadioGroup
-                value={category}
-                onChange={(category) => setValue("category", category)}
-              >
-                <VStack align="flex-start">
-                  {user?.categories.map((category) => (
-                    <Radio value={category} key={category} colorScheme="brand">
-                      {category}
-                    </Radio>
-                  ))}
-                </VStack>
-              </RadioGroup>
-            </FormControl>
+                <RadioGroup
+                  value={category}
+                  onChange={(category) => setValue("category", category)}
+                >
+                  <VStack align="flex-start">
+                    {user?.categories.map((category) => (
+                      <Radio
+                        value={category}
+                        key={category}
+                        colorScheme="brand"
+                      >
+                        {category}
+                      </Radio>
+                    ))}
+                  </VStack>
+                </RadioGroup>
+              </FormControl>
+            )}
           </Flex>
         </ModalBody>
 
