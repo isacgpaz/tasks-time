@@ -11,9 +11,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Book, Cactus, Play, Plus } from "@phosphor-icons/react";
+import { useState } from "react";
 import { Task } from "../../ts/task";
 import { CreateTaskModal } from "../CreateTaskModal";
-import { TasksDetailsModal } from "../TaskDetailsModal";
+import { TaskDetailsModal } from "../TaskDetailsModal";
 
 export function TasksList() {
   const {
@@ -29,6 +30,8 @@ export function TasksList() {
   } = useDisclosure();
 
   const tasks: Task[] = JSON.parse(localStorage.getItem("@taskstime:tasks")!);
+
+  const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
 
   return (
     <Box mt={6}>
@@ -70,7 +73,14 @@ export function TasksList() {
                 <Icon as={Book} color="white" fontSize={24} weight="fill" />
               </Flex>
 
-              <Box flex={1} onClick={onTaskDetailsOpen} cursor="pointer">
+              <Box
+                flex={1}
+                onClick={() => {
+                  setSelectedTask(task);
+                  onTaskDetailsOpen();
+                }}
+                cursor="pointer"
+              >
                 <Text fontSize="lg" fontWeight={500}>
                   {task.title}
                 </Text>
@@ -111,9 +121,10 @@ export function TasksList() {
 
       <CreateTaskModal isOpen={isCreateTaskOpen} onClose={onCreateTaskClose} />
 
-      <TasksDetailsModal
+      <TaskDetailsModal
         isOpen={isTaskDetailsOpen}
         onClose={onTaskDetailsClose}
+        task={selectedTask}
       />
     </Box>
   );

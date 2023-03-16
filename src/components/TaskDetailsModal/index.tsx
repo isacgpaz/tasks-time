@@ -13,11 +13,17 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Play } from "@phosphor-icons/react";
+import { Task } from "../../ts/task";
 
-export function TasksDetailsModal({
+type TaskDetailsModalProps = {
+  task: Task | undefined;
+} & Omit<ModalProps, "children">;
+
+export function TaskDetailsModal({
   isOpen,
   onClose,
-}: Omit<ModalProps, "children">) {
+  task,
+}: TaskDetailsModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -28,37 +34,46 @@ export function TasksDetailsModal({
             Detalhes da tarefa
           </Text>
 
-          <Text fontWeight={700}>Tarefa</Text>
+          <Text fontWeight={700}>{task?.title}</Text>
         </ModalHeader>
 
         <ModalBody>
           <Box>
             <FormLabel as="span" fontSize="xs" color="gray.600">
-              Categoria
+              Duração
             </FormLabel>
 
-            <Tag
-              bg="purple"
-              color="white"
-              px={3}
-              py={1}
-              borderRadius="full"
-              fontSize="xs"
-            >
-              Categoria
-            </Tag>
+            <Text fontSize="sm">{task?.time}</Text>
           </Box>
 
-          <Box mt={4}>
-            <FormLabel as="span" fontSize="xs" color="gray.600">
-              Objetivo
-            </FormLabel>
+          {task?.category && (
+            <Box mt={4}>
+              <FormLabel as="span" fontSize="xs" color="gray.600">
+                Categoria
+              </FormLabel>
 
-            <Text fontSize="sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
-              eos maiores tempore commodi iusto quaerat
-            </Text>
-          </Box>
+              <Tag
+                bg="purple"
+                color="white"
+                px={3}
+                py={1}
+                borderRadius="full"
+                fontSize="xs"
+              >
+                {task.category}
+              </Tag>
+            </Box>
+          )}
+
+          {task?.description && (
+            <Box mt={4}>
+              <FormLabel as="span" fontSize="xs" color="gray.600">
+                Descrição
+              </FormLabel>
+
+              <Text fontSize="sm">{task.description}</Text>
+            </Box>
+          )}
         </ModalBody>
 
         <ModalFooter gap={4}>
