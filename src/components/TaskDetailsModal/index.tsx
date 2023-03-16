@@ -11,6 +11,7 @@ import {
   Tag,
   ModalFooter,
   Button,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import { Play } from "@phosphor-icons/react";
 import { Task } from "../../ts/task";
@@ -24,6 +25,20 @@ export function TaskDetailsModal({
   onClose,
   task,
 }: TaskDetailsModalProps) {
+  const onDeleteTask = () => {
+    if (task) {
+      const previousTasks: Task[] = JSON.parse(
+        localStorage.getItem("@taskstime:tasks")!
+      );
+
+      const tasksFiltered = previousTasks.filter(({ id }) => id !== task?.id);
+
+      localStorage.setItem("@taskstime:tasks", JSON.stringify(tasksFiltered));
+
+      onClose();
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -36,6 +51,8 @@ export function TaskDetailsModal({
 
           <Text fontWeight={700}>{task?.title}</Text>
         </ModalHeader>
+
+        <ModalCloseButton />
 
         <ModalBody>
           <Box>
@@ -79,12 +96,12 @@ export function TaskDetailsModal({
         <ModalFooter gap={4}>
           <Button
             w="full"
-            colorScheme="blackAlpha"
-            variant="ghost"
-            onClick={onClose}
+            colorScheme="red"
+            variant="outline"
+            onClick={onDeleteTask}
             borderRadius="full"
           >
-            Fechar
+            Excluir
           </Button>
 
           <Button

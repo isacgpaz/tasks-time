@@ -85,7 +85,7 @@ export function TasksList() {
                   {task.title}
                 </Text>
                 <Text fontSize="xs" color="gray.500">
-                  {task.time}
+                  Duração {task.time}
                 </Text>
               </Box>
 
