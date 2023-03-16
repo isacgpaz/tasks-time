@@ -24,6 +24,7 @@ export function Header() {
           </Text>
 
           <MotionHand
+            display={{ base: "none", lg: "block" }}
             fontSize="4xl"
             animate={{
               rotate: [0, 10, -10, 0],
