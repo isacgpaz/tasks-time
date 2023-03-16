@@ -17,6 +17,7 @@ type AuthContextProps = {
   isAuthenticated: boolean;
   signIn: (user: User) => void;
   isLoading: boolean;
+  signOut: () => void;
 };
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -49,12 +50,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
     );
   }
 
+  function signOut() {
+    setUser(null);
+    localStorage.removeItem("@taskstime:user");
+    localStorage.removeItem("@taskstime:tasks");
+  }
+
   const authContextValues = useMemo(
     () => ({
       user,
       isAuthenticated: Boolean(user),
       signIn,
       isLoading,
+      signOut,
     }),
     [user, isLoading]
   );

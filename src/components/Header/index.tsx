@@ -11,7 +11,7 @@ import { useAuth } from "../../context/auth";
 import { getGreeting } from "../../utils/getGretting";
 
 export function Header() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <Flex gap={4} justify="space-between" align="center">
@@ -43,6 +43,7 @@ export function Header() {
         icon={<SignOut weight="bold" size={22} />}
         colorScheme="whiteAlpha"
         color="brand.600"
+        onClick={signOut}
       />
     </Flex>
   );

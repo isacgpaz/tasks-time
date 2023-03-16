@@ -4,12 +4,10 @@ import {
   useContext,
   useMemo,
   useState,
-  useEffect,
   Dispatch,
   SetStateAction,
 } from "react";
 import { TaskWithTimeFormatted } from "../ts/task";
-import { User } from "../ts/user";
 
 type TaskProviderProps = {
   children: ReactNode;
@@ -29,7 +27,7 @@ export function TaskProvider({ children }: TaskProviderProps) {
     TaskWithTimeFormatted | undefined
   >(undefined);
 
-  const [showCountdown, setShowContdown] = useState(true);
+  const [showCountdown, setShowContdown] = useState(false);
 
   const TaskContextValues = useMemo(
     () => ({ selectedTask, setSelectedTask, showCountdown, setShowContdown }),
