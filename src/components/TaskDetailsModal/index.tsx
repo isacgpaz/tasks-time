@@ -110,20 +110,22 @@ export function TaskDetailsModal({
             Excluir
           </Button>
 
-          <Button
-            w="full"
-            bgGradient="linear(to-r, green.300, green.500)"
-            color="white"
-            _hover={{
-              bgGradient: "linear(to-r, green.300, green.500)",
-              transform: "scale(0.985)",
-            }}
-            leftIcon={<Play weight="fill" size={18} />}
-            borderRadius="full"
-            onClick={initTask}
-          >
-            Iniciar
-          </Button>
+          {!selectedTask?.isCompleted && (
+            <Button
+              w="full"
+              bgGradient="linear(to-r, green.300, green.500)"
+              color="white"
+              _hover={{
+                bgGradient: "linear(to-r, green.300, green.500)",
+                transform: "scale(0.985)",
+              }}
+              leftIcon={<Play weight="fill" size={18} />}
+              borderRadius="full"
+              onClick={initTask}
+            >
+              Iniciar
+            </Button>
+          )}
         </ModalFooter>
       </ModalContent>
     </Modal>

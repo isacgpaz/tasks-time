@@ -8,6 +8,7 @@ import {
 import { CheckFat, Pause, Play } from "@phosphor-icons/react";
 import { ReactNode, useEffect, useState } from "react";
 import { useTask } from "../../context/task";
+import { Task } from "../../ts/task";
 
 type CountdownProps = {
   taskTime: number;
@@ -27,7 +28,7 @@ export function Coutdown({ taskTime }: CountdownProps) {
   const [wasStarted, setWasStarted] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
-  const { setSelectedTask, setShowContdown } = useTask();
+  const { selectedTask, setSelectedTask, setShowContdown } = useTask();
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -49,6 +50,21 @@ export function Coutdown({ taskTime }: CountdownProps) {
 
   function stopCountdown() {
     setIsActive(false);
+  }
+
+  function onCompleteTask() {
+    const previousTasks: Task[] = JSON.parse(
+      localStorage.getItem("@taskstime:tasks")!
+    );
+
+    const tasksWithUpdate = previousTasks.map((task) =>
+      task.id === selectedTask?.id ? { ...task, isCompleted: true } : task
+    );
+
+    localStorage.setItem("@taskstime:tasks", JSON.stringify(tasksWithUpdate));
+
+    setSelectedTask(undefined);
+    setShowContdown(false);
   }
 
   const minutes = Math.floor(time / 60);
@@ -83,7 +99,7 @@ export function Coutdown({ taskTime }: CountdownProps) {
           }}
           leftIcon={<CheckFat weight="fill" size={18} />}
           borderRadius="full"
-          // onClick={startCountdown}
+          onClick={onCompleteTask}
         >
           Marcar como concluída
         </Button>

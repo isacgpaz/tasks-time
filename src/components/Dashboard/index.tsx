@@ -10,10 +10,6 @@ export function Dashboard() {
       <Container maxW={840} py={10}>
         <Header />
 
-        <Flex mt={6} gap={16}>
-          {/* <Coutdown /> */}
-        </Flex>
-
         <TasksList />
       </Container>
 

@@ -10,7 +10,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Book, Cactus, Play, Plus } from "@phosphor-icons/react";
+import { Book, Cactus, CheckFat, Play, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
 import { useTask } from "../../context/task";
 import { Task, TaskWithTimeFormatted } from "../../ts/task";
@@ -85,6 +85,7 @@ export function TasksList() {
                   key={task.id}
                   as={ListItem}
                   bg="whiteAlpha.500"
+                  opacity={task.isCompleted ? 0.75 : 1}
                   borderRadius="xl"
                   align="center"
                   gap={4}
@@ -118,20 +119,35 @@ export function TasksList() {
                     </Text>
                   </Box>
 
-                  <IconButton
-                    aria-label="play"
-                    icon={<Play weight="fill" size={18} />}
-                    bgGradient="linear(to-r, green.300, green.500)"
-                    color="white"
-                    borderRadius="full"
-                    _hover={{
-                      bgGradient: "linear(to-r, green.300, green.500)",
-                      transform: "scale(0.9)",
-                    }}
-                    w={12}
-                    h={12}
-                    onClick={() => initTask(task)}
-                  />
+                  {task.isCompleted ? (
+                    <IconButton
+                      as={Flex}
+                      aria-label="completed"
+                      borderRadius="full"
+                      size="lg"
+                      bgGradient="linear(to-r, brand.200, brand.500)"
+                      _hover={{
+                        bgGradient: "linear(to-r, brand.200, brand.500)",
+                      }}
+                      color="white"
+                      icon={<CheckFat weight="fill" size={18} />}
+                    />
+                  ) : (
+                    <IconButton
+                      aria-label="play"
+                      icon={<Play weight="fill" size={18} />}
+                      bgGradient="linear(to-r, green.300, green.500)"
+                      color="white"
+                      borderRadius="full"
+                      _hover={{
+                        bgGradient: "linear(to-r, green.300, green.500)",
+                        transform: "scale(0.9)",
+                      }}
+                      w={12}
+                      h={12}
+                      onClick={() => initTask(task)}
+                    />
+                  )}
                 </Flex>
               ))
             ) : (
