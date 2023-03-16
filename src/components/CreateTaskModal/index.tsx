@@ -149,7 +149,7 @@ export function CreateTaskModal({
               <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
             </FormControl>
 
-            {user?.categories && (
+            {user && user?.categories.length > 0 && (
               <FormControl>
                 <FormLabel fontSize="xs" color="gray.600">
                   Categoria (Opcional)
