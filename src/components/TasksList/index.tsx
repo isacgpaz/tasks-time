@@ -64,7 +64,7 @@ export function TasksList() {
       ) : (
         <>
           <Flex justify="space-between" gap={6}>
-            <Heading size="lg">Minhas tarefas (8)</Heading>
+            <Heading size="lg">Minhas tarefas ({tasks?.length ?? 0})</Heading>
 
             <Flex>
               <Button
