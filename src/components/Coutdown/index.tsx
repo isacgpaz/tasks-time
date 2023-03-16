@@ -37,6 +37,8 @@ export function Coutdown({ taskTime }: CountdownProps) {
     } else if (isActive && time === 0) {
       setHasFinished(true);
       setIsActive(false);
+
+      new Audio("/notification.wav").play();
     }
   }, [isActive, time]);
 
