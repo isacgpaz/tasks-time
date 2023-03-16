@@ -3,6 +3,7 @@ import { Dashboard } from "./components/Dashboard";
 import { Footer } from "./components/Footer";
 import { Presentation } from "./components/Presentation";
 import { useAuth } from "./context/auth";
+import { TaskProvider } from "./context/task";
 
 export function App() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -32,5 +33,9 @@ export function App() {
     );
   }
 
-  return <Dashboard />;
+  return (
+    <TaskProvider>
+      <Dashboard />;
+    </TaskProvider>
+  );
 }

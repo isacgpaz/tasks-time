@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { CheckFat, Pause, Play } from "@phosphor-icons/react";
 import { ReactNode, useEffect, useState } from "react";
+import { useTask } from "../../context/task";
 
 type CountdownProps = {
   taskTime: number;
@@ -25,6 +26,8 @@ export function Coutdown({ taskTime }: CountdownProps) {
   const [isActive, setIsActive] = useState(false);
   const [wasStarted, setWasStarted] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
+
+  const { setSelectedTask, setShowContdown } = useTask();
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -105,14 +108,35 @@ export function Coutdown({ taskTime }: CountdownProps) {
             {isActive ? "Pausar" : wasStarted ? "Retomar" : "Iniciar"}
           </Button>
 
-          <Button
-            w="full"
-            colorScheme="red"
-            variant="outline"
-            borderRadius="full"
-          >
-            Abandonar
-          </Button>
+          {wasStarted ? (
+            <Button
+              w="full"
+              colorScheme="red"
+              variant="outline"
+              borderRadius="full"
+              onClick={() => {
+                setSelectedTask(undefined);
+                setShowContdown(false);
+              }}
+            >
+              Abandonar
+            </Button>
+          ) : (
+            <Button
+              w="full"
+              colorScheme="gray"
+              variant="link"
+              _hover={{
+                textDecor: "none",
+              }}
+              onClick={() => {
+                setSelectedTask(undefined);
+                setShowContdown(false);
+              }}
+            >
+              Voltar
+            </Button>
+          )}
         </>
       )}
     </Flex>

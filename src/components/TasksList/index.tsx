@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Book, Cactus, Play, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
+import { useTask } from "../../context/task";
 import { Task, TaskWithTimeFormatted } from "../../ts/task";
 import { Coutdown } from "../Coutdown";
 import { CreateTaskModal } from "../CreateTaskModal";
@@ -30,16 +31,13 @@ export function TasksList() {
     onClose: onCreateTaskClose,
   } = useDisclosure();
 
+  const { selectedTask, setSelectedTask, setShowContdown, showCountdown } =
+    useTask();
+
   const tasks: Task[] = JSON.parse(localStorage.getItem("@taskstime:tasks")!);
 
-  const [selectedTask, setSelectedTask] = useState<
-    TaskWithTimeFormatted | undefined
-  >(undefined);
-
-  const [showAllTasks, setShowAllTasks] = useState(true);
-
   const initTask = (task: TaskWithTimeFormatted) => {
-    setShowAllTasks(false);
+    setShowContdown(true);
     setSelectedTask(task);
   };
 
@@ -59,7 +57,11 @@ export function TasksList() {
 
   return (
     <Box mt={6}>
-      {showAllTasks ? (
+      {showCountdown ? (
+        <Flex mt={14} gap={16} justify="center">
+          <Coutdown taskTime={selectedTask?.time ?? 1} />
+        </Flex>
+      ) : (
         <>
           <Flex justify="space-between" gap={6}>
             <Heading size="lg">Minhas tarefas (8)</Heading>
@@ -149,10 +151,6 @@ export function TasksList() {
             )}
           </Flex>
         </>
-      ) : (
-        <Flex mt={14} gap={16} justify="center">
-          <Coutdown taskTime={selectedTask?.time ?? 1} />
-        </Flex>
       )}
 
       <CreateTaskModal isOpen={isCreateTaskOpen} onClose={onCreateTaskClose} />
