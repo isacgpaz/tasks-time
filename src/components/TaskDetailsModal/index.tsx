@@ -14,10 +14,10 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Play } from "@phosphor-icons/react";
-import { Task } from "../../ts/task";
+import { Task, TaskWithTimeFormatted } from "../../ts/task";
 
 type TaskDetailsModalProps = {
-  task: Task | undefined;
+  task: TaskWithTimeFormatted | undefined;
 } & Omit<ModalProps, "children">;
 
 export function TaskDetailsModal({
@@ -60,7 +60,7 @@ export function TaskDetailsModal({
               Duração
             </FormLabel>
 
-            <Text fontSize="sm">{task?.time}</Text>
+            <Text fontSize="sm">{task?.fullTime}</Text>
           </Box>
 
           {task?.category && (

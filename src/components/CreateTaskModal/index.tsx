@@ -117,9 +117,9 @@ export function CreateTaskModal({
 
               <Input
                 variant={"filled"}
-                placeholder="hh:mm:ss"
+                placeholder="mm:ss"
                 as={ReactInputMask}
-                mask="99:99:99"
+                mask="99:99"
                 {...register("time", {
                   min: {
                     value: "00:00",

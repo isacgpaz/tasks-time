@@ -1,10 +1,16 @@
 import {
   Box,
+  Button,
   CircularProgress,
   CircularProgressLabel,
   Flex,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { CheckFat, Pause, Play } from "@phosphor-icons/react";
+import { ReactNode, useEffect, useState } from "react";
+
+type CountdownProps = {
+  taskTime: number;
+};
 
 function Digit({ children }: { children: ReactNode }) {
   return (
@@ -14,27 +20,101 @@ function Digit({ children }: { children: ReactNode }) {
   );
 }
 
-export function Coutdown() {
+export function Coutdown({ taskTime }: CountdownProps) {
+  const [time, setTime] = useState(taskTime);
+  const [isActive, setIsActive] = useState(false);
+  const [wasStarted, setWasStarted] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
+
+  useEffect(() => {
+    if (isActive && time > 0) {
+      setTimeout(() => {
+        setTime(time - 1);
+      }, 1000);
+    } else if (isActive && time === 0) {
+      setHasFinished(true);
+      setIsActive(false);
+    }
+  }, [isActive, time]);
+
+  function startCountdown() {
+    setIsActive(true);
+    setWasStarted(true);
+  }
+
+  function stopCountdown() {
+    setIsActive(false);
+  }
+
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  const progressValue = (100 * time) / taskTime;
+
   return (
-    <CircularProgress
-      size={64}
-      value={40}
-      color="rose"
-      trackColor="whiteAlpha.400"
-    >
-      <CircularProgressLabel as={Flex} align="baseline" justify="center">
-        <Box>
-          <Digit>0</Digit>
-          <Digit>0</Digit>
-        </Box>
+    <Flex direction="column" align="center" gap={8}>
+      <CircularProgress
+        size={64}
+        value={progressValue}
+        color="brand.500"
+        trackColor={hasFinished ? "green.300" : "white"}
+      >
+        <CircularProgressLabel as={Flex} align="baseline" justify="center">
+          <Digit>
+            {minutes.toString().padStart(2, "0")}:
+            {seconds.toString().padStart(2, "0")}
+          </Digit>
+        </CircularProgressLabel>
+      </CircularProgress>
 
-        <Digit>:</Digit>
+      {hasFinished ? (
+        <Button
+          w="full"
+          bgGradient="linear(to-r, green.300, green.500)"
+          color="white"
+          _hover={{
+            bgGradient: "linear(to-r, green.300, green.500)",
+            transform: "scale(0.985)",
+          }}
+          leftIcon={<CheckFat weight="fill" size={18} />}
+          borderRadius="full"
+          // onClick={startCountdown}
+        >
+          Marcar como concluída
+        </Button>
+      ) : (
+        <>
+          <Button
+            w="full"
+            bgGradient="linear(to-r, green.300, green.500)"
+            color="white"
+            _hover={{
+              bgGradient: "linear(to-r, green.300, green.500)",
+              transform: "scale(0.985)",
+            }}
+            leftIcon={
+              isActive ? (
+                <Pause weight="fill" size={18} />
+              ) : (
+                <Play weight="fill" size={18} />
+              )
+            }
+            borderRadius="full"
+            onClick={isActive ? stopCountdown : startCountdown}
+          >
+            {isActive ? "Pausar" : wasStarted ? "Retomar" : "Iniciar"}
+          </Button>
 
-        <Box>
-          <Digit>0</Digit>
-          <Digit>0</Digit>
-        </Box>
-      </CircularProgressLabel>
-    </CircularProgress>
+          <Button
+            w="full"
+            colorScheme="red"
+            variant="outline"
+            borderRadius="full"
+          >
+            Abandonar
+          </Button>
+        </>
+      )}
+    </Flex>
   );
 }

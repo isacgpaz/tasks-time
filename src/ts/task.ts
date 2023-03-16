@@ -6,3 +6,7 @@ export type Task = {
   category?: string;
   description?: string;
 };
+
+export type TaskWithTimeFormatted = Task & {
+  fullTime: string;
+};
