@@ -21,8 +21,15 @@ import {
 } from "@chakra-ui/react";
 import { v4 } from "uuid";
 import { useForm } from "react-hook-form";
+import ReactInputMask from "react-input-mask";
+
 import { useAuth } from "../../context/auth";
 import { Task } from "../../ts/task";
+import { timeToSeconds } from "../../utils/timeToSeconds";
+
+type CreateTaskFormType = Omit<Task, "time" | "id"> & {
+  time: string;
+};
 
 export function CreateTaskModal({
   isOpen,
@@ -37,7 +44,7 @@ export function CreateTaskModal({
     watch,
     reset,
     setValue,
-  } = useForm<Omit<Task, "id">>({
+  } = useForm<CreateTaskFormType>({
     defaultValues: {},
   });
 
@@ -48,10 +55,10 @@ export function CreateTaskModal({
     time,
     category,
     description,
-  }: Omit<Task, "id">) {
+  }: CreateTaskFormType) {
     const newTask = {
       title,
-      time,
+      time: timeToSeconds(time),
       category,
       description,
       isCompleted: false,
@@ -110,8 +117,9 @@ export function CreateTaskModal({
 
               <Input
                 variant={"filled"}
-                placeholder="01:00"
-                type="time"
+                placeholder="hh:mm:ss"
+                as={ReactInputMask}
+                mask="99:99:99"
                 {...register("time", {
                   min: {
                     value: "00:00",

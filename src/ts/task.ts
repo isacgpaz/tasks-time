@@ -1,7 +1,7 @@
 export type Task = {
   id: string;
   title: string;
-  time: string;
+  time: number;
   isCompleted: boolean;
   category?: string;
   description?: string;
