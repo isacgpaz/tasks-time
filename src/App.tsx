@@ -35,7 +35,7 @@ export function App() {
 
   return (
     <TaskProvider>
-      <Dashboard />;
+      <Dashboard />
     </TaskProvider>
   );
 }
