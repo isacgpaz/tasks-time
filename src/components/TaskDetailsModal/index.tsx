@@ -14,29 +14,35 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { Play } from "@phosphor-icons/react";
+import { useTask } from "../../context/task";
 import { Task, TaskWithTimeFormatted } from "../../ts/task";
-
-type TaskDetailsModalProps = {
-  task: TaskWithTimeFormatted | undefined;
-} & Omit<ModalProps, "children">;
 
 export function TaskDetailsModal({
   isOpen,
   onClose,
-  task,
-}: TaskDetailsModalProps) {
+}: Omit<ModalProps, "children">) {
+  const { selectedTask, setSelectedTask, setShowContdown } = useTask();
+
   const onDeleteTask = () => {
-    if (task) {
+    if (selectedTask) {
       const previousTasks: Task[] = JSON.parse(
         localStorage.getItem("@taskstime:tasks")!
       );
 
-      const tasksFiltered = previousTasks.filter(({ id }) => id !== task?.id);
+      const tasksFiltered = previousTasks.filter(
+        ({ id }) => id !== selectedTask?.id
+      );
 
       localStorage.setItem("@taskstime:tasks", JSON.stringify(tasksFiltered));
 
       onClose();
     }
+  };
+
+  const initTask = () => {
+    setShowContdown(true);
+    setSelectedTask(selectedTask);
+    onClose();
   };
 
   return (
@@ -49,7 +55,7 @@ export function TaskDetailsModal({
             Detalhes da tarefa
           </Text>
 
-          <Text fontWeight={700}>{task?.title}</Text>
+          <Text fontWeight={700}>{selectedTask?.title}</Text>
         </ModalHeader>
 
         <ModalCloseButton />
@@ -60,10 +66,10 @@ export function TaskDetailsModal({
               Duração
             </FormLabel>
 
-            <Text fontSize="sm">{task?.fullTime}</Text>
+            <Text fontSize="sm">{selectedTask?.fullTime}</Text>
           </Box>
 
-          {task?.category && (
+          {selectedTask?.category && (
             <Box mt={4}>
               <FormLabel as="span" fontSize="xs" color="gray.600">
                 Categoria
@@ -77,18 +83,18 @@ export function TaskDetailsModal({
                 borderRadius="full"
                 fontSize="xs"
               >
-                {task.category}
+                {selectedTask.category}
               </Tag>
             </Box>
           )}
 
-          {task?.description && (
+          {selectedTask?.description && (
             <Box mt={4}>
               <FormLabel as="span" fontSize="xs" color="gray.600">
                 Descrição
               </FormLabel>
 
-              <Text fontSize="sm">{task.description}</Text>
+              <Text fontSize="sm">{selectedTask.description}</Text>
             </Box>
           )}
         </ModalBody>
@@ -114,6 +120,7 @@ export function TaskDetailsModal({
             }}
             leftIcon={<Play weight="fill" size={18} />}
             borderRadius="full"
+            onClick={initTask}
           >
             Iniciar
           </Button>

@@ -59,7 +59,7 @@ export function TasksList() {
     <Box mt={6}>
       {showCountdown ? (
         <Flex mt={14} gap={16} justify="center">
-          <Coutdown taskTime={selectedTask?.time ?? 1} />
+          <Coutdown taskTime={selectedTask?.time ?? 0} />
         </Flex>
       ) : (
         <>
@@ -130,9 +130,7 @@ export function TasksList() {
                     }}
                     w={12}
                     h={12}
-                    onClick={() => {
-                      initTask(task);
-                    }}
+                    onClick={() => initTask(task)}
                   />
                 </Flex>
               ))
@@ -158,7 +156,6 @@ export function TasksList() {
       <TaskDetailsModal
         isOpen={isTaskDetailsOpen}
         onClose={onTaskDetailsClose}
-        task={selectedTask}
       />
     </Box>
   );
