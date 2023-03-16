@@ -112,7 +112,7 @@ export function CreateTaskModal({
 
             <FormControl isInvalid={!!errors.time}>
               <FormLabel fontSize="xs" color="gray.600">
-                Tempo
+                Duração
               </FormLabel>
 
               <Input
@@ -120,6 +120,7 @@ export function CreateTaskModal({
                 placeholder="mm:ss"
                 as={ReactInputMask}
                 mask="99:99"
+                type="tel"
                 {...register("time", {
                   min: {
                     value: "00:00",
